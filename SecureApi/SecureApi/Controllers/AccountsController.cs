@@ -41,7 +41,6 @@ namespace SecureApi.Controllers
 			}
 
 			var userEntity = mapper.Map<User>(registration);
-			userEntity.UserName = registration.Email;
 			var result = await userManager.CreateAsync(userEntity, registration.Password);
 
 			if(!result.Succeeded)

@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using SecureApi.Database;
 using SecureApi.Identity.PasswordHashers;
 using SecureApi.Models;
+using SecureApi.Models.Mapping;
 using SecureApi.Models.WebEntities;
 using SecureApi.Models.WebEntities.Validations;
 using System;
@@ -62,13 +63,7 @@ namespace SecureApi
 				.AddDefaultTokenProviders();
 			services.AddScoped<IPasswordHasher<User>, Argon2PasswordHasher<User>>();
 
-
-			var configuration = new MapperConfiguration(cfg =>
-			{
-				cfg.CreateMap<RegistrationWe, User>();
-			});
-
-			services.AddAutoMapper(x => x.CreateMap<RegistrationWe, User>());
+			services.AddAutoMapper(c => c.AddProfile<WeToEntityProfile>()) ;
 
 		}
 
