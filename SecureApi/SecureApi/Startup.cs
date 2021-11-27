@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SecureApi.Database;
+using SecureApi.Identity.PasswordHashers;
 using SecureApi.Models;
 using SecureApi.Models.WebEntities;
 using SecureApi.Models.WebEntities.Validations;
@@ -59,6 +60,8 @@ namespace SecureApi
 				})
 				.AddEntityFrameworkStores<AuthenticationContext>()
 				.AddDefaultTokenProviders();
+			services.AddScoped<IPasswordHasher<User>, Argon2PasswordHasher<User>>();
+
 
 			var configuration = new MapperConfiguration(cfg =>
 			{
