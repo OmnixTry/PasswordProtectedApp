@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Amazon.CDK.AWS.KMS" Version="1.134.0" />
+    <PackageReference Include="AWSSDK" Version="2.3.55" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
+    <PackageReference Include="NaCl.Core" Version="1.2.0" />
     <PackageReference Include="Sodium.Core" Version="1.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
