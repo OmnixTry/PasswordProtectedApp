@@ -1,0 +1,3 @@
+[Environment]::SetEnvironmentVariable("awsAccessKeyId","AKIAVD6BDGYODAGN4WXU","User");
+[Environment]::SetEnvironmentVariable("awsSecretAccessKey","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","User");
+[Environment]::SetEnvironmentVariable("keyId","0ea00b7c-9946-43c7-abca-a4eed2e1a003","User");

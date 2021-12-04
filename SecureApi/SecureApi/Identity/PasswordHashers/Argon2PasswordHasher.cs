@@ -25,10 +25,9 @@ namespace SecureApi.Identity.PasswordHashers
 			{
 				throw new ArgumentException("Password can't be null");
 			}
-			
 
-			var kmsClient = new AmazonKeyManagementServiceClient("AKIAVD6BDGYODAGN4WXU", "pmexuvNPHzULIMm6eqQ5onYuBimzABArImgkaq+9", RegionEndpoint.GetBySystemName("us-east-2"));;
 			//string keyId = "arn:aws:kms:us-east-2:352055408156:key/0ea00b7c-9946-43c7-abca-a4eed2e1a003";
+			var kmsClient = new AmazonKeyManagementServiceClient("AKIAVD6BDGYODAGN4WXU", "pmexuvNPHzULIMm6eqQ5onYuBimzABArImgkaq+9", RegionEndpoint.GetBySystemName("us-east-2"));;
 			string keyId = "0ea00b7c-9946-43c7-abca-a4eed2e1a003";
 			var aliases = kmsClient.ListAliases(new ListAliasesRequest() { Limit = 10 });
 
