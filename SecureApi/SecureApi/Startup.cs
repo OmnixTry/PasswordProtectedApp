@@ -23,6 +23,7 @@ using SecureApi.Models.WebEntities;
 using SecureApi.Models.WebEntities.Validations;
 using SecureApi.Services;
 using SecureApi.Services.Contract;
+using SecureApi.Services.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,38 +71,13 @@ namespace SecureApi
 				})
 				.AddEntityFrameworkStores<AuthenticationContext>()
 				.AddDefaultTokenProviders();
-			services.AddScoped<IPasswordHasher<User>, Argon2PasswordHasher<User>>();
-			services.AddSingleton<IJwtFactory, JwtFactory>();
+			services.AddScoped<IPasswordHasher<User>, EncryptedArgonHasher<User>>();
 			services.AddTransient<IKeyLoader, KmsKeyLoader>();
+			services.AddTransient<IEncryptor, SalsaEncryptionServise>();
 
 			services.AddAutoMapper(c => c.AddProfile<WeToEntityProfile>());
 
 			var jwtAppSettingConfigurationOptions = Configuration.GetSection(nameof(JwtIssuerConfig));
-
-			// Configure JwtIssuerOptions
-			services.Configure<JwtIssuerConfig>(options =>
-			{
-				options.Issuer = jwtAppSettingConfigurationOptions[nameof(JwtIssuerConfig.Issuer)];
-				options.Audience = jwtAppSettingConfigurationOptions[nameof(JwtIssuerConfig.Audience)];
-				options.SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.Aes256CbcHmacSha512);
-			});
-
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-					.AddJwtBearer(options =>
-					{
-						options.RequireHttpsMetadata = false;
-						options.TokenValidationParameters = new TokenValidationParameters
-						{							
-							ValidateIssuer = true,							
-							ValidIssuer = jwtAppSettingConfigurationOptions[nameof(JwtIssuerConfig.Issuer)],							
-							ValidateAudience = true,							
-							ValidAudience = jwtAppSettingConfigurationOptions[nameof(JwtIssuerConfig.Audience)],							
-							ValidateLifetime = true,							
-							IssuerSigningKey = signingKey,							
-							ValidateIssuerSigningKey = true,
-						};
-					});
-
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,35 +99,7 @@ namespace SecureApi
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
-			});
-
-			var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerConfig));
-			var tokenValidationParameters = new TokenValidationParameters
-			{
-				ValidateIssuer = true,
-				ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerConfig.Issuer)],
-
-				ValidateAudience = true,
-				ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerConfig.Audience)],
-
-				ValidateIssuerSigningKey = true,
-				IssuerSigningKey = signingKey,
-
-				RequireExpirationTime = false,
-				ValidateLifetime = false,
-				ClockSkew = TimeSpan.Zero
-			};
-
-			
+			});			
 		}
-
-		class diProfile : Profile
-		{
-			public diProfile()
-			{
-				CreateMap<RegistrationWe, User>();
-			}
-		}
-
 	}
 }
