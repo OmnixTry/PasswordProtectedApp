@@ -18,9 +18,12 @@ using SecureApi.Database;
 using SecureApi.Identity.Jwt;
 using SecureApi.Identity.PasswordHashers;
 using SecureApi.Models;
+using SecureApi.Models.Entities;
 using SecureApi.Models.Mapping;
 using SecureApi.Models.WebEntities;
 using SecureApi.Models.WebEntities.Validations;
+using SecureApi.Repositories.Contract;
+using SecureApi.Repositories.Impl;
 using SecureApi.Services;
 using SecureApi.Services.Contract;
 using SecureApi.Services.Impl;
@@ -74,6 +77,8 @@ namespace SecureApi
 			services.AddScoped<IPasswordHasher<User>, EncryptedArgonHasher<User>>();
 			services.AddTransient<IKeyLoader, KmsKeyLoader>();
 			services.AddTransient<IEncryptor, SalsaEncryptionServise>();
+			services.AddTransient<IRepository<GreatMystery>, BaseRepository<GreatMystery>>();
+			services.AddTransient<IRepository<DefaultUser>, BaseRepository<DefaultUser>>();
 
 			services.AddAutoMapper(c => c.AddProfile<WeToEntityProfile>());
 

@@ -17,5 +17,7 @@ namespace SecureApi.Database
 		}
 
 		public DbSet<DefaultUser> DefaultUsers { get; set; }
+
+		public DbSet<GreatMystery> GreatMystery { get; set; }
 	}
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SecureApi.Models.Entities
 {
-	public class DefaultUser
+	[]
+	public class GreatMystery
 	{
 		public int Id { get; set; }
-		public string IdentityId { get; set; }
-		public User Identity { get; set; }  // navigation property
+
 		[Encrypt]
-		public string Location { get; set; }
+		public string MysteriousMessage { get; set; }
 	}
 }
