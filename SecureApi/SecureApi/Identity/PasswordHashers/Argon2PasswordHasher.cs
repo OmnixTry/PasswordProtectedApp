@@ -18,7 +18,7 @@ namespace SecureApi.Identity.PasswordHashers
 	public class Argon2PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : class
 	{
 		const StrengthArgon Strength = StrengthArgon.Sensitive;
-		public string HashPassword(TUser user, string password)
+		public virtual string HashPassword(TUser user, string password)
 		{
 			
 			if(password == null)
@@ -67,7 +67,7 @@ namespace SecureApi.Identity.PasswordHashers
 			return PasswordHash.ArgonHashString(password, Strength).TrimEnd('\0');
 		}
 
-		public PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword)
+		public virtual PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword)
 		{
 			if(hashedPassword == null)
 			{
