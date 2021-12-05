@@ -21,6 +21,8 @@ using SecureApi.Models;
 using SecureApi.Models.Mapping;
 using SecureApi.Models.WebEntities;
 using SecureApi.Models.WebEntities.Validations;
+using SecureApi.Services;
+using SecureApi.Services.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +72,7 @@ namespace SecureApi
 				.AddDefaultTokenProviders();
 			services.AddScoped<IPasswordHasher<User>, Argon2PasswordHasher<User>>();
 			services.AddSingleton<IJwtFactory, JwtFactory>();
+			services.AddTransient<IKeyLoader, KmsKeyLoader>();
 
 			services.AddAutoMapper(c => c.AddProfile<WeToEntityProfile>());
 
