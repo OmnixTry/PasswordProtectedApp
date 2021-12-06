@@ -1,1 +1,13 @@
-<p>crd-verification-from works!</p>
+<form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+    <h1>Verify Credentials Here</h1>
+    <label>Username:</label>
+    <br>
+    <input type="text" formControlName="username">
+    <br>
+    <label>Password:</label>
+    <br>
+    <input type="password" formControlName="password">
+    <br>
+    <button type="submit" [disabled]="!newUserForm.valid">Submit</button>
+    <div>{{requestResult}}</div>
+</form>
