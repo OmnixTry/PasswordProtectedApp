@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { lowerCaseValidator, numbersValidator, specialSymbolValidator, upperCaseValidator } from '../validators';
 
 @Component({
   selector: 'app-log-in-form',
@@ -17,16 +18,17 @@ export class LogInFormComponent implements OnInit {
     this.newUserForm = fb.group(
       {
         email: ['', Validators.required],
-        password: ['', Validators.required],
+        password: ['', { validators: [Validators.required, Validators.minLength(12), Validators.maxLength(64), upperCaseValidator(), lowerCaseValidator(), numbersValidator(), specialSymbolValidator()]}],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         location: ['', Validators.required]
       });
 
-      
+      console.log(this.newUserForm.errors);
   }
 
   ngOnInit(): void {
+    console.log(this.newUserForm.errors);
   }
 
   onSubmit(){
