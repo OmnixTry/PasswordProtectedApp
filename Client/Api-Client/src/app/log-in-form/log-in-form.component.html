@@ -1,0 +1,20 @@
+<form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+    <h1>Input User Credentials Here</h1>
+    <label>Email:</label>
+    <input type="text" formControlName="email">
+    <br>
+    <label>Password:</label>
+    <input type="text" formControlName="password">
+    <br>
+    <label>FirstName:</label>
+    <input type="text" formControlName="firstName">
+    <br>
+    <label>LastName:</label>
+    <input type="text" formControlName="lastName">
+    <br>
+    <label>Location:</label>
+    <input type="text" formControlName="location">
+    <br>
+    <button type="submit" [disabled]="!newUserForm.valid">Submit</button>
+    <div>{{requestResult}}</div>
+</form>

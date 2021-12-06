@@ -62,6 +62,17 @@ namespace SecureApi
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "SecureApi", Version = "v1" });
 			});
 
+			services.AddCors(options =>
+			{
+				// this defines a CORS policy called "default"
+				options.AddPolicy("default", policy =>
+				{
+					policy.WithOrigins("http://localhost:4200")
+						.AllowAnyHeader()
+						.AllowAnyMethod();
+				});
+			});
+
 			services.AddIdentity<User, IdentityRole>
 				(o =>
 				{
@@ -100,6 +111,8 @@ namespace SecureApi
 			app.UseRouting();
 
 			app.UseAuthorization();
+
+			app.UseCors("default");
 
 			app.UseEndpoints(endpoints =>
 			{
