@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogInFormComponent } from './log-in-form/log-in-form.component';
 import { CrdVerificationFromComponent } from './crd-verification-from/crd-verification-from.component';
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { CrdVerificationFromComponent } from './crd-verification-from/crd-verifi
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PasswordStrengthMeterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

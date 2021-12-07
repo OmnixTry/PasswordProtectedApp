@@ -15,7 +15,7 @@ export function lowerCaseValidator(): ValidatorFn {
         const value = control.value;
         const hasLowerCase = /[a-z]+/.test(value);
 
-        return !hasLowerCase ? { noUppercase: true}: null;
+        return !hasLowerCase ? { noLowercase: true}: null;
     }
 }
 
@@ -31,10 +31,6 @@ export function numbersValidator(): ValidatorFn {
 export function specialSymbolValidator(): ValidatorFn {
     return (control:AbstractControl) : ValidationErrors | null => {
         const value = control.value;
-
-        if (!value) {
-            return null;
-        }
 
         const hasSpecialSymbols  = /[!@#$%^&*<>?]+/.test(value);
 

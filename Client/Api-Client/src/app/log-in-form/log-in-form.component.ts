@@ -13,15 +13,34 @@ export class LogInFormComponent implements OnInit {
   newUserForm = new FormGroup({});
   requestResult: any;
 
+  get passValue():string {
+    return this.newUserForm.value.password;
+  }
+
+  get pwdErrors(): any{
+    return this.newUserForm.controls.password.errors;
+  }
+
+  get strErrors(): any {
+    return this.newUserForm.controls?.strength?.errors;
+  }
+
+  onStrengthChange(change: any){
+    console.log(change);
+    console.log(this.newUserForm);
+    this.newUserForm.get('strength')?.setValue(change);
+  }
+
   constructor(fb: FormBuilder, private http: HttpClient) 
   { 
     this.newUserForm = fb.group(
       {
         email: ['', Validators.required],
-        password: ['', { validators: [Validators.required, Validators.minLength(12), Validators.maxLength(64), upperCaseValidator(), lowerCaseValidator(), numbersValidator(), specialSymbolValidator()]}],
+        password: ['', { validators: [Validators.required, Validators.minLength(10), Validators.maxLength(64), upperCaseValidator(), lowerCaseValidator(), numbersValidator(), specialSymbolValidator()]}],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        location: ['', Validators.required]
+        location: ['', Validators.required],
+        strength: [null, Validators.min(3)]
       });
 
       console.log(this.newUserForm.errors);

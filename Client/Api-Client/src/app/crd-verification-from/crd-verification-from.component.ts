@@ -12,6 +12,10 @@ export class CrdVerificationFromComponent implements OnInit {
   newUserForm = new FormGroup({});
   requestResult: any;
 
+  get pwdErrors(): any{
+    return this.newUserForm.controls.password.errors;
+  }
+
   constructor(fb: FormBuilder, private http: HttpClient) 
   { 
     this.newUserForm = fb.group(

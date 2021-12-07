@@ -7,6 +7,16 @@
     <label>Password:</label>
     <br>
     <input type="text" formControlName="password">
+    <div class="width">
+        <password-strength-meter class="width" [password]="passValue" [enableFeedback]="true" (strengthChange)="onStrengthChange($event)" [minPasswordLength]="10"></password-strength-meter>
+    </div>
+    <span *ngIf="pwdErrors?.noUppercase">Password must have uppercase Letters</span><br>
+    <span *ngIf="pwdErrors?.noLowercase">Password must have lowercase Letters</span><br>
+    <span *ngIf="pwdErrors?.noNumeric">Password must have numbers</span><br>
+    <span *ngIf="pwdErrors?.noSpecialSymbols">Password must have Special Symbols</span><br>
+    <span *ngIf="!newUserForm.controls.password.touched || strErrors?.min"> Password must have strength more than 3 </span><br>
+    <span *ngIf="!newUserForm.controls.password.touched || pwdErrors?.minlength">{{'Password must be at least 10 symbols '}}</span><br>
+
     <br>
     <label>FirstName:</label>
     <br>
@@ -20,6 +30,6 @@
     <br>
     <input type="text" formControlName="location">
     <br>
-    <button type="submit" [disabled]="!newUserForm.valid">Submit</button>
+    <button type="submit" [disabled]="!newUserForm.valid" class="submit-btn">Submit</button>
     <div>{{requestResult}}</div>
 </form>
